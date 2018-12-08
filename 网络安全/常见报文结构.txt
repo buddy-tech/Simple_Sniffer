@@ -1,0 +1,27 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2018-12-01T22:40:37+08:00
+
+====== 常见报文结构 ======
+Created Saturday 01 December 2018
+
+===== 以太网帧 =====
+{{./screenshot_2018-12-01-224350.png}}
+
+===== IPv4 =====
+{{./screenshot_2018-12-01-224556.png}}
+
+===== ARP =====
+{{./screenshot_2018-12-01-224733.png}}
+
+===== ICMP =====
+{{./screenshot_2018-12-01-224838.png}}
+
+===== TCP =====
+{{./screenshot_2018-12-01-224925.png}}
+
+===== UDP =====
+{{./screenshot_2018-12-01-225003.png}}
+
+===== DNS =====
+{{./screenshot_2018-12-04-175256.png}}

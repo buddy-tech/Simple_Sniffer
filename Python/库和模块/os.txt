@@ -1,0 +1,28 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2018-11-27T09:31:34+08:00
+
+====== os ======
+Created Tuesday 27 November 2018
+
+os 是一个内置模块，可以用来执行系统操作，处理文件和目录。
+
+===== 权限 =====
+* ''os.access(path, mode)：查看文件或目录权限''
+* ''os.chmod()：更改文件或目录的权限''
+* ''os.chown()：更改所有者''
+
+===== 目录 =====
+* ''os.getcwd()：返回当前目录''
+* ''os.listdir(path)：返回指定目录下所有的文件和目录名''
+* ''os.remove(filename)：删除指定文件''
+* ''os.rmdir(dirname)：删除指定目录''
+* ''os.mkdir(dirname)：创建目录，只能创建一层目录''
+
+===== 文件 =====
+* ''os.open()：用于打开一个文件，并且设置需要的打开选项''
+* ''os.read(fd, n)：用于从文件描述符 fd 中读取最多 n 个字节，返回包含读取字节的字符串''
+* ''os.unlink(path)：删除文件，如果是目录就返回一个错误''
+
+===== 命令 =====
+* ''os.system(cmd)：执行一个系统命令''

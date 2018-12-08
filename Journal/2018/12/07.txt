@@ -1,0 +1,11 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2018-12-07T15:27:31+08:00
+
+====== Friday 07 Dec 2018 ======
+
+* ''php file()''函数可以将一个文件读进数组
+* 利用 GLOBALS 打印全部变量（php 安全）
+* ''python的程序有两种退出方式：os._exit()， sys.exit()''
+* 输出字体颜色：termcolor 模块
+* 理解 inode：http://www.ruanyifeng.com/blog/2011/12/inode.html

@@ -1,0 +1,17 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2018-12-01T15:37:29+08:00
+
+====== Saturday 01 Dec 2018 ======
+
+* 练习 Python 原始套接字编程
+* 学习 sniffer 原理，复习了一下[[网络安全:常见报文结构|协议结构]]
+	* 端口0是一个预留端口，如果在 socket 编程使用，则由系统指定动态生成的端口。
+	* 套接字选项：https://blog.csdn.net/daiyudong2020/article/details/51902429
+
+文件描述符：
+	* 内核利用文件描述符（file descriptor）来访问文件。
+	* 文件描述符是非负整数。
+	* 打开现存文件或新建文件时，内核会返回一个文件描述符。
+	* 读写文件也需要使用文件描述符来指定待读写的文件。
+	* 习惯上，标准输入（standard input）的文件描述符是 0，标准输出（standard output）是 1，标准错误（standard error）是 2。

@@ -1,0 +1,11 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2018-11-27T16:00:18+08:00
+
+====== Tuesday 27 Nov 2018 ======
+
+* 体验 BeautifulSoup、MechanicalSoup 和 [[Python:pdb|pdb]]
+* 用一下 nikto
+* 看了一点《程序员的自我修养》
+* 看《Python 核心编程》，WCGI、服务器基础、[[Python:2to3|Python 2.x 和 3.x的区别]]
+* mark 一篇文章：[[https://xlab.tencent.com/cn/2017/01/19/ie-sandbox-escape-with-sql-injection/#more-260|用SQL注入穿IE沙箱]]

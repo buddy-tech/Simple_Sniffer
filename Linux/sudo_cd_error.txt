@@ -1,0 +1,10 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2018-11-30T08:15:03+08:00
+
+====== sudo cd error ======
+Created Friday 30 November 2018
+
+执行一个外部程序时，shell 会 fork 一个子进程进行执行，而 cd 不是一个外部程序而是 shell 内建命令，因此 sudo 并不能找到一个叫做 cd 的外部程序执行，也不能作为子进程被执行（子进程不能影响其 shell 的工作目录），因此报 command not found ，类似的情况还有重定向等。
+
+需要 su 获取 root 用户后再使用 cd 命令。

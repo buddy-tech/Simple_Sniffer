@@ -1,0 +1,22 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2018-11-29T08:38:44+08:00
+
+====== Thursday 29 Nov 2018 ======
+
+* vim 生成的 .swp 文件默认是隐藏的所以前面还有个点！（我是傻逼）
+* PHP 中 '''0' == '0000000000''' 是 True
+* 学习如何用 Python 编写 Shell 脚本
+* 看了一点《C 和指针》，记录一些概念：
+	* 函数原型：向编译器提供函数信息
+	* 所有参数都是值传递，除了数组
+	* 不存在 string 类型，字符串即一串以 NUL 结尾的字符
+	* NUL：'\0'字符的名字；NULL：值为0的指针
+	* 三字母词
+	* typedef：给数据结构改名
+	* 链接属性
+	* goto 语句
+	* C 没有异常处理语句，通过库函数实现
+
+* mark 一篇文章：[[https://paper.seebug.org/729/|sqlmap 检测剖析]]
+* docker 命令：https://www.jianshu.com/p/7c9e2247cfbd

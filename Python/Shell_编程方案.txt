@@ -1,0 +1,34 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2018-11-29T11:29:34+08:00
+
+====== Shell 编程方案 ======
+Created Thursday 29 November 2018
+
+'''
+接受输入：fileinput 模块
+
+错误信息：SysterExit 异常类
+
+解析命令行选项：argparse 模块
+
+密码验证：getpass 模块
+
+终端尺寸：os.get_terminal_size()
+
+执行外部命令：subprocess 模块
+
+复制和移动文件：shutil 模块
+
+压缩和解压：shutil.make_archive() 和 shutil.unpack_archive()
+
+查找文件：os.walk() 和 os.path
+
+读写配置文件（.ini)：configparser 模块
+
+限制内存和 CPU：resource 模块
+
+操作浏览器：webbrowser 模块
+
+交互式命令执行：pexpect 模块
+'''

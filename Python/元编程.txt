@@ -1,0 +1,29 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2018-11-28T15:25:11+08:00
+
+====== 元编程 ======
+Created Wednesday 28 November 2018
+
+===== 简介 =====
+简而言之，元编程就是关于创建操作源代码（比如修改、生成或包装原来的代码）的函数和类。 主要技术是使用装饰器、类装饰器和元类。不过还有一些其他技术， 包括签名对象、使用 ''exec()'' 执行代码以及对内部函数和类的反射技术等。
+
+===== 装饰器 =====
+一个装饰器就是一个函数，它接受一个函数作为参数并返回一个新的函数。 
+
+比如：
+'''
+@timethis
+def countdown(n):
+    pass
+'''
+等同于：
+'''
+def countdown(n):
+    pass
+countdown = timethis(countdown)
+'''
+
+> 注意用 ''@wraps(func)'' 注解保留原始函数的元数据。
+
+详解：https://python3-cookbook.readthedocs.io/zh_CN/latest/chapters/p09_meta_programming.html
