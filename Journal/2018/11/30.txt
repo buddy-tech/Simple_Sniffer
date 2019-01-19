@@ -1,7 +1,0 @@
-Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
-Creation-Date: 2018-11-30T21:50:22+08:00
-
-====== Friday 30 Nov 2018 ======
-
-docker 网络问题：https://www.embbnux.com/2016/10/06/docker-container-network-too-slow-timeout/

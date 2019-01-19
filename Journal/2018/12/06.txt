@@ -1,9 +1,0 @@
-Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
-Creation-Date: 2018-12-06T11:04:36+08:00
-
-====== Thursday 06 Dec 2018 ======
-
-Server-Side Request Forgery：服务器端请求伪造
-	* ''通俗的来说就是我们可以伪造服务器端发起的请求，从而获取客户端所不能得到的数据。''
-	* ''SSRF漏洞形成的原因主要是服务器端所提供的接口中包含了所要请求的内容的URL参数，并且未对客户端所传输过来的URL参数进行过滤。''

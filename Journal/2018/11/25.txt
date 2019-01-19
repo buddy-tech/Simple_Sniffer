@@ -1,9 +1,0 @@
-Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
-Creation-Date: 2018-11-25T23:41:20+08:00
-
-====== 星期日 25 11月 2018 ======
-
-* 学了些 Python 的 Web 编程基础，爬虫示例还没写完
-* 水了 SPSS 的安装报告和预习作业
-* 开始用 zim 做笔记，主要想管理碎片化的知识
