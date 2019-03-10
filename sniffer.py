@@ -4,7 +4,6 @@ import socket
 import fcntl
 import ctypes
 import argparse
-from termcolor import *
 
 from proto.ethernet import Ethernet
 from proto.ipv4 import IPv4
@@ -13,8 +12,8 @@ from proto.tcp import TCP
 from proto.udp import UDP
 from proto.http import HTTP
 
-PROTOCOL = ('ETHERNET', 'ARP', 'IPV4', 'TCP', 'UDP', 'ICMP', 'DNS', 'HTTP')
-PROTO_NUM = {'IPV4': 8, 'ICMP': 1, 'TCP': 6}
+PROTOCOL = ('ETHERNET', 'ARP', 'IPV4', 'TCP', 'UDP', 'ICMP', 'DNS', 'HTTP')  # 支持的协议类型
+PROTO_NUM = {'IPV4': 8, 'ICMP': 1, 'TCP': 6, 'UDP': 17}  # 协议号
 
 
 class FLAGS:
@@ -57,41 +56,58 @@ class PromiscuousSocket:
 def _filter_and_show(raw_data, proto):
     proto = proto.upper()
     success = False
+    output = ''
 
     if proto not in PROTOCOL and proto != 'ALL':
         raise ProtocolException
 
     eth = Ethernet(raw_data)
     if proto == 'ETHERNET' or proto == 'ALL':
-        print(colored('Ethernet Frame:', 'red'))
-        print(f'Destination: {eth.dest_mac}, Source: {eth.src_mac}, Protocol: {eth.proto}')
+        output = output \
+                 + 'Ethernet Frame:\n' \
+                 + f'Destination: {eth.dest_mac}, Source: {eth.src_mac}, Protocol: {eth.proto}\n'
         success = True
 
     if eth.proto == PROTO_NUM['IPV4']:
         ipv4 = IPv4(eth.data)
         if proto == 'IPV4' or proto == 'ALL':
-            print('IPv4 Packet:')
-            print(f'Version: {ipv4.version}, Header Length: {ipv4.header_length}, TTL: {ipv4.ttl}')
-            print(f'Source: {ipv4.src}, Target: {ipv4.target}')
+            output += 'IPv4 Packet:\n' \
+                      + f'Version: {ipv4.version}, Header Length: {ipv4.header_length}, TTL: {ipv4.ttl}\n' \
+                      + 'Source: {ipv4.src}, Target: {ipv4.target}\n'
             success = True
 
         if ipv4.proto == PROTO_NUM['ICMP']:
             icmp = ICMP(ipv4.data)
             if proto == 'ICMP' or proto == 'ALL':
-                print('ICMP Packet:')
-                print(f'Type: {icmp.type}, Code: {icmp.coded}, Checksum: {icmp.checksum}')
-                print(f'ICMP Data: {icmp.data}')
+                output += 'ICMP Packet:\n' \
+                          + f'Type: {icmp.type}, Code: {icmp.coded}, Checksum: {icmp.checksum}\n' \
+                          + f'ICMP Data: {icmp.data}\n'
+                success = True
+
+        elif ipv4.proto == PROTO_NUM['UDP']:
+            udp = UDP(ipv4.data)
+            if proto == 'UDP' or proto == 'ALL':
+                output = f'UDP Segment:\n' \
+                         + f'Source Port: {udp.src_port}, Destination Port: {udp.dest_port}\n' \
+                         + f'Packet Length: {udp.size}'
                 success = True
 
         elif ipv4.proto == PROTO_NUM['TCP']:
             tcp = TCP(ipv4.data)
             if proto == 'TCP' or proto == 'ALL':
-                print('TCP Segment:')
-                print(f'Source Port: {tcp.src_port}, Destination Port: {tcp.dest_port}')
-                print(f'Sequence: {tcp.sequence}, Acknowledgment: {tcp.acknowledgment}')
+                output = 'TCP Segment:\n' \
+                         + f'Source Port: {tcp.src_port}, Destination Port: {tcp.dest_port}' \
+                         + f'Sequence: {tcp.sequence}, Acknowledgment: {tcp.acknowledgment}'
                 success = True
 
-    return success
+            if tcp.src_port == 80 or tcp.dest_port == 80:
+                if proto == 'HTTP' or proto == 'ALL':
+                    http = HTTP(tcp.data)
+                    output = 'HTTP Segment:\n' \
+                             + http.data if len(http.data) > 0 else '(Empty packet)'
+                    success = True
+
+    return (success, output)
 
 
 def sniff(count, proto, promisc):
@@ -99,27 +115,23 @@ def sniff(count, proto, promisc):
 
     try:
         if promisc:
-            with PromiscuousSocket() as conn:
-
-                packet_number = 1
-                while packet_number <= count:
-                    raw_data, addr = conn.recvfrom(65535)
-                    print('-' * 10, '\nPacket Id:', packet_number)
-                    if _filter_and_show(raw_data, proto):
-                        packet_number += 1
+            conn = PromiscuousSocket().s
         else:
             conn = socket.socket(socket.AF_PACKET, socket.SOCK_RAW, socket.ntohs(3))
-            packet_number = 1
 
-            while packet_number <= count:
-                raw_data, addr = conn.recvfrom(65535)
+        packet_number = 1
+        while packet_number <= count:
+            raw_data, addr = conn.recvfrom(65535)
+            success, output = _filter_and_show(raw_data, proto)
+            if success:
                 print('-' * 10, '\nPacket Id:', packet_number)
-                if _filter_and_show(raw_data, proto):
-                    packet_number += 1
-
-            conn.close()
+                print(output)
+                packet_number += 1
+        conn.close()
     except PermissionError as err:
-        print("Must sudo!!!")
+        print("[-] Must sudo.")
+    except KeyboardInterrupt as err:
+        print("\n[-] Keyboard Interrupt! Exit!")
 
 
 class ProtocolException(Exception):
@@ -131,7 +143,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-n', '--number', type=int, help="pakcet's number of output")
     parser.add_argument('-p', '--protocol', type=str, help='output specific protocol')
-    parser.add_argument('-P', '--promisc', action='store_true', help='promic mode')
+    parser.add_argument('-P', '--promisc', action='store_true', help='promisc mode')
     args = parser.parse_args()
 
     num = args.number or 30

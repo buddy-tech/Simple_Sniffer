@@ -4,4 +4,4 @@ class HTTP:
         try:
             self.data = raw_data.decode('utf-8')
         except:
-            self.data = raw_data
+            self.data = str(raw_data)
