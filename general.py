@@ -18,3 +18,33 @@ def format_multi_line(prefix, string, size=80):
         if size % 2:
             size -= 1
     return '\n'.join([prefix + line for line in textwrap.wrap(string, size)])
+
+
+def asciiDump(data):
+    output = '  '
+    for x in data:
+        if x in range(32, 127):
+            output += chr(x)
+        else:
+            output += '.'
+    output += '\n'
+    return output
+
+
+def dump(data):
+    output = '--- DATA DUMP ---\n'
+    output += 'Offset(h)  '
+    for i in range(16):
+        output += ('%02X ' % i)
+    output += '\tASCII\n'
+    line = 0  # every line holds 16 bytes
+    index = 0  # index of the current line in data
+    for i in range(len(data)):
+        if i % 16 == 0:
+            output += asciiDump(data[index:i])
+            index = i
+            # print the new line address
+            output += ('%08X   ' % line)
+            line += 1
+        output += ('%02X ' % data[i])
+    return output

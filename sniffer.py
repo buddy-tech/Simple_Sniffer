@@ -4,6 +4,7 @@ import socket
 import fcntl
 import ctypes
 import argparse
+import general
 
 from proto.ethernet import Ethernet
 from proto.ipv4 import IPv4
@@ -91,6 +92,17 @@ def _filter_and_show(raw_data, proto):
                          + f'Source Port: {udp.src_port}, Destination Port: {udp.dest_port}\n' \
                          + f'Packet Length: {udp.size}'
                 success = True
+
+            if proto == 'DNS' or proto == 'ALL':
+                if udp.src_port == 53:
+                    output = 'This is a DNS request:\n' \
+                             + general.dump(udp.data)
+                    success = True
+                if udp.dest_port == 53:
+                    output = 'This is a DNS response:\n' \
+                             + general.dump(udp.data)
+                    success = True
+
 
         elif ipv4.proto == PROTO_NUM['TCP']:
             tcp = TCP(ipv4.data)
